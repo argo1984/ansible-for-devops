@@ -383,6 +383,7 @@ or environment variables (DO_API_TOKEN)''')
                             'size_' + droplet['size']['slug'],
                             'distro_' + self.to_safe(droplet['image']['distribution']),
                             'status_' + droplet['status'],
+                            str(droplet['tags'][0]),
 
                         ]:
                 if group not in self.inventory:
