@@ -383,7 +383,6 @@ or environment variables (DO_API_TOKEN)''')
                             'size_' + droplet['size']['slug'],
                             'distro_' + self.to_safe(droplet['image']['distribution']),
                             'status_' + droplet['status'],
-                            str(droplet['tags'][0]),
 
                         ]:
                 if group not in self.inventory:
@@ -401,7 +400,11 @@ or environment variables (DO_API_TOKEN)''')
                         self.inventory[image] = { 'hosts': [ ], 'vars': {} }
                     self.inventory[image]['hosts'].append(dest)
 
-
+            if droplet['tags']:
+                for tag in droplet['tags']:
+                    if tag not in self.inventory:
+                        self.inventory[tag] = { 'hosts': [ ], 'vars': {} }
+                    self.inventory[tag]['hosts'].append(dest)
 
     def load_droplet_variables_for_host(self):
         '''Generate a JSON response to a --host call'''
